@@ -1,21 +1,31 @@
 ---
 title: "Reproducible Research: Peer Assessment 1"
-output: 
-  html_document:
-    keep_md: true
+##output: 
+##  html_document:
+##    keep_md: true
 ---
 
 
 ## Loading and preprocessing the data
-
-
+```{r}
+data <- read.csv("activity.csv", colClasses = c("numeric", "Date", "numeric"))
+data1 <- data[complete.cases(data),]
+```
 
 ## What is mean total number of steps taken per day?
-
+```{r}
+answer1 <- tapply(data1$steps, data1$date, FUN = sum)
+hist(answer1)
+mean(answer1)
+median(answer1)
+```
 
 
 ## What is the average daily activity pattern?
-
+```{r}
+answer2 <- tapply(data1$steps, data1$interval, FUN = mean)
+plot(row.names(answer2), answer2)
+```
 
 
 ## Imputing missing values
